@@ -17,13 +17,13 @@
 #define DLGTITLE  L"My dialog"
 #define DLGFONT   L"MS Shell Dlg"
 
-extern "C" { int __fastcall DecToBin(int y, int* x); }
+extern "C" void isSquare(int, int, int*);
 
 bool down = false;
 bool changes = false;
 int a;
 int b;
-int* c =  new int[16] ;
+int* c =  new int[6] ;
 bool ok = false;
 
 int answer = 0;
@@ -241,35 +241,16 @@ INT_PTR CALLBACK DlgProc(HWND hwndDlg, UINT msg, WPARAM wParam,
 
 			if (GetWindowTextLengthW(TextB) != 0)
 				b = GetNewParamm(TextB);
-
-			for (int i = 0;i < 16; i++)
-			{
-				c[i] = 0;
-			}
-
-			__asm
-			{
-			      mov ecx,a
-				  mov edx,c
-				  call DecToBin
-				
-				
-			}
 			
+			int isSquareI = false;
+			isSquare(a, b, &isSquareI);
 
 			std::wstring result;
-			int k = 0;
-
-			while (c[k] == 0)
-				k++;
-
-			for (int i = k; i < 16; i++)
-			{
-
-				int d = c[i];
-				result += std::to_wstring(c[i]);
-			}
-
+			if (isSquareI == 1)
+				result = L"yes";
+			else
+				result = L"No";
+			
 			
 
 			SendMessageW(Label, WM_SETTEXT, 10, (LPARAM)&result[0]);
