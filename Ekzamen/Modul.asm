@@ -15,7 +15,7 @@ mov ebp,esp
 mov eax,[ebp+8]
 mov ebx,[ebp+12]
 imul eax,ebx
-mov ecx,1
+mov ecx,0
 cycle1:
 inc ecx
 push ecx
